@@ -104,7 +104,7 @@ with open("/app/Dockerfile", "a") as dockerfile:
     dockerfile.write("\n")
     for envvar in buildargs:
         dockerfile.write("ARG {}\n".format(envvar))
-client = docker.Client(version='auto')
+client = docker.APIClient(base_url='unix:///var/run/docker.sock', version='auto')
 if registryLocation != "on-cluster":
     registry = os.getenv('DEIS_REGISTRY_HOSTNAME', 'https://index.docker.io/v1/')
     username = os.getenv('DEIS_REGISTRY_USERNAME')
@@ -115,7 +115,6 @@ imageName, imageTag = os.getenv('IMG_NAME').split(":", 1)
 repo = registry + "/" + os.getenv('IMG_NAME')
 stream = client.build(
     tag=repo,
-    stream=True,
     decode=True,
     rm=True,
     pull=True,
