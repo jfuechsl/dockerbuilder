@@ -7,7 +7,7 @@ RUN buildDeps='gcc git libffi-dev libssl-dev python3-dev python3-pip python3-whe
   libffi6 \
   libssl1.0.0 \
   python3-minimal && \
-  pip3 install --disable-pip-version-check --no-cache-dir docker-py==4.1.0 && \
+  pip3 install --disable-pip-version-check --no-cache-dir docker==4.1.0 && \
   # cleanup
   apt-get purge -y --auto-remove $buildDeps && \
   apt-get autoremove -y && \
